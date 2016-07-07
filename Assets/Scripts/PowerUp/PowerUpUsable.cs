@@ -24,7 +24,7 @@ public class PowerUpUsable : MonoBehaviour
             else if (PUType == type.Bomb)
             {
                 return;
-            }
+            } 
             else if (PUType == type.Sprint)
             {
                 return;

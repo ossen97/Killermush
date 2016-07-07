@@ -3,12 +3,9 @@ using System.Collections;
 
 public class PowerUpState : MonoBehaviour 
 {
-    /*
-    Power up di stato. 
-    State=Health,Speed;
-    */
-    
-    public string type;
+    public enum types { Health, Speed};
+    public types type;
+    private string stringType;
     public float minValue;
     public float maxValue;
     private float value;
@@ -22,8 +19,7 @@ public class PowerUpState : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        health = player.transform.GetComponent<Health>();
-        controller = player.transform.GetComponent<PlayerController>();
+        stringType = type.ToString();
     }
 
     void Update()
@@ -33,16 +29,13 @@ public class PowerUpState : MonoBehaviour
             timer -= Time.deltaTime;
             if (timer <= 0)
             {
-                switch (type)
+                switch (stringType)
                 {
                     case "Health":
                         health.currentHealth = oldValue;
                         break;
                     case "Speed":
                         controller.speed = oldValue;
-                        break;
-                    default:
-                        health.currentHealth = oldValue;
                         break;
                 }
                 GameObject.Destroy(gameObject);
@@ -61,19 +54,17 @@ public class PowerUpState : MonoBehaviour
             else
                 Destroy(gameObject);
 
-            switch (type)
+            switch (stringType)
             {
                 case "Health":
+                    health = player.transform.GetComponent<Health>();
                     oldValue = health.currentHealth;
                     health.currentHealth += value;
                     break;
                 case "Speed":
+                    controller = player.transform.GetComponent<PlayerController>();
                     oldValue = controller.speed;
                     controller.speed += value;
-                    break;
-                default:
-                    oldValue = health.currentHealth;
-                    health.currentHealth += value;
                     break;
             }
             transform.GetChild(0).GetComponent<Renderer>().enabled = false;
