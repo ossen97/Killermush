@@ -18,7 +18,7 @@ public class GenerateCube : MonoBehaviour {
             {
                 for(int i=0;i<quantity;i++)
                 {
-                    Instantiate(cube, new Vector3(_hit.point.x,_hit.point.y+1+i,_hit.point.z), Quaternion.LookRotation(cube.transform.forward));
+                    Instantiate(cube, new Vector3(_hit.point.x,_hit.point.y+0.7f*i,_hit.point.z), Quaternion.LookRotation(cube.transform.forward));
                 }
             }
         }

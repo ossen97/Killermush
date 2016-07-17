@@ -28,16 +28,8 @@ public class AttackStateMelmoso : IMelmosoState
 
         if(melmoso.distance < melmoso.dangerRange)
         {
-            ToEscapeState();
+            ToSuicideState();
         }
-
-        if (melmoso.distance < melmoso.smokeRange)
-        {
-            melmoso.smoke.enabled = true;
-            melmoso.target.GetComponent<Health>().Damage(melmoso.smokeDamage);
-        }
-        else
-            melmoso.smoke.enabled = false;
     }
 
     public void EnterState()
@@ -62,22 +54,26 @@ public class AttackStateMelmoso : IMelmosoState
         melmoso.currentState = melmoso.attackState;
     }
 
-    public void ToEscapeState()
+    public void ToSuicideState()
     {
-        melmoso.escapeState.EnterState();
-        melmoso.currentState = melmoso.escapeState;
+        melmoso.suicideState.EnterState();
+        melmoso.currentState = melmoso.suicideState;
     }
 
     Vector3 BallisticVel(Transform target, float angle)
     {
-        Vector3 dir = target.position - melmoso.transform.position;  // get target direction
-        float h = dir.y;  // get height difference
+        Vector3 pos = new Vector3();
+        pos.z = target.position.z + Random.Range(-10/melmoso.precision, 10/melmoso.precision);
+        pos.x = target.position.x + Random.Range(-10/melmoso.precision, 10/melmoso.precision);
+        pos.y = target.position.y;
+        Vector3 dir = pos - melmoso.transform.position;  // get target direction
+        //float h = dir.y;  // get height difference
         dir.y = 0;  // retain only the horizontal direction
         float dist = dir.magnitude;  // get horizontal distance
-        angle = angle + Random.Range(-10, 10);
+        //angle = angle + Random.Range(-10, 10);
         float a = angle * Mathf.Deg2Rad;  // convert angle to radians
         dir.y = dist * Mathf.Tan(a);  // set dir to the elevation angle
-        dist += h / Mathf.Tan(a);  // correct for small height differences
+        //dist += h / Mathf.Tan(a);  // correct for small height differences
         // calculate the velocity magnitude
         float vel = Mathf.Sqrt(dist * melmoso.gravity / Mathf.Sin(2 * a));
         return vel * dir.normalized;

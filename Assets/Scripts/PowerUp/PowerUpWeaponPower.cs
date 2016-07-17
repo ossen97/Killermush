@@ -8,8 +8,8 @@ public class PowerUpWeaponPower : MonoBehaviour
     private string stringType;
     private float precisionValue;
     private float rangeValue;
-    public float timer;
-    private bool timerStarted = false;
+    //public float timer;
+    //private bool timerStarted = false;
     private float oldValue;
     GameObject player;
     WeaponManager manager;
@@ -44,10 +44,10 @@ public class PowerUpWeaponPower : MonoBehaviour
     {
         if (collider.gameObject.name == "Player")
         {
-            if (timer != 0)
-                timerStarted = true;
+            /*if (timer != 0)
+                //timerStarted = true;
             else
-                Destroy(gameObject);
+                Destroy(gameObject);*/
 
             switch (stringType)
             {

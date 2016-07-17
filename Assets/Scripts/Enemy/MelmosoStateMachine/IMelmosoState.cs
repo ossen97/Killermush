@@ -13,5 +13,5 @@ public interface IMelmosoState
 
     void ToAttackState();
 
-    void ToEscapeState();
+    void ToSuicideState();
 }

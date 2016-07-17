@@ -23,7 +23,7 @@ public class AttackStateSmokie : ISmokieState
 
             smokie.substractValueFunction();
 
-            if (Input.GetMouseButtonDown(1))
+            if (Input.GetKeyDown(smokie.key))
             {
                 smokie.clickValue += 10;
                 if (smokie.clickValue >= 100)

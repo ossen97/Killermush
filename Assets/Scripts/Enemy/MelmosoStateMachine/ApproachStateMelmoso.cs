@@ -17,7 +17,7 @@ public class ApproachStateMelmoso : IMelmosoState
 
     public void EnterState()
     {
-
+        melmoso.pathTimer = melmoso.updatePathTimer;
     }
 
     public void FixedUpdateState()
@@ -28,7 +28,6 @@ public class ApproachStateMelmoso : IMelmosoState
             melmoso.agent.SetDestination(melmoso.target.position);
             melmoso.pathTimer = melmoso.updatePathTimer;
         }
-
 
         melmoso.distance = Vector3.Distance(melmoso.transform.position, melmoso.target.position);
         if (melmoso.distance < melmoso.attackRange)
@@ -47,9 +46,9 @@ public class ApproachStateMelmoso : IMelmosoState
         melmoso.currentState = melmoso.attackState;
     }
 
-    public void ToEscapeState()
+    public void ToSuicideState()
     {
-        melmoso.escapeState.EnterState();
-        melmoso.currentState = melmoso.escapeState;
+        melmoso.suicideState.EnterState();
+        melmoso.currentState = melmoso.suicideState;
     }
 }

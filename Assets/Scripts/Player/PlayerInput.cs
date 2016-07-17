@@ -18,7 +18,7 @@ public class PlayerInput : MonoBehaviour
         //CONTROLLO SPARO
         manager.currentWeapon.timer += Time.deltaTime;
 
-        if (Input.GetButton("Fire1")) //Alla pressione del tasto sx del mouse
+        if (Input.GetButton("Fire1") || Input.GetAxis("PadFire")<-0.6) //Alla pressione del tasto sx del mouse
         {
             if (manager.currentWeapon.firstShot) //Se è il primo sparo
             {
@@ -38,7 +38,7 @@ public class PlayerInput : MonoBehaviour
             }
         }
 
-        if (Input.GetButtonUp("Fire1")) //Al rilascio del tasto sx del mouse
+        if (Input.GetButtonUp("Fire1") || Input.GetAxis("PadFire") > -0.6) //Al rilascio del tasto sx del mouse
         {
             if (controller)
             {

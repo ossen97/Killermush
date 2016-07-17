@@ -6,17 +6,17 @@ public class StatePatternMelmoso : MonoBehaviour
     [HideInInspector] public Transform target;
     public Transform skifBall;
     public Transform shootPoint;
-    public ParticleRenderer smoke;
-    public float smokeDamage;
-    public float smokeRange;
+    public Transform suicideSmoke;
     public float moveSpeed;
     public float rotSpeed;
     public float attackRange;
     public float minDistanceToTarget;
     public float dangerRange;
-    public float safeRange;
+    public float explDamageMultiplier;
+    public float explosionForce;
     public float attackTimer;
     public float shootAngle;
+    public float precision;
     public float points;
     public float updatePathTimer;
     [HideInInspector] public float pathTimer;
@@ -28,13 +28,13 @@ public class StatePatternMelmoso : MonoBehaviour
     public IMelmosoState currentState;
     public ApproachStateMelmoso approachState;
     public AttackStateMelmoso attackState;
-    public EscapeStateMelmoso escapeState;
+    public SuicideStateMelmoso suicideState;
 
     void Awake()
     {
         approachState = new ApproachStateMelmoso(this);
         attackState = new AttackStateMelmoso(this);
-        escapeState = new EscapeStateMelmoso(this);
+        suicideState = new SuicideStateMelmoso(this);
         
         agent = GetComponent<NavMeshAgent>();
         agent.speed = moveSpeed;
@@ -53,7 +53,6 @@ public class StatePatternMelmoso : MonoBehaviour
         agent.angularSpeed = rotSpeed;
         agent.stoppingDistance = minDistanceToTarget;
         gravity = Physics.gravity.magnitude;
-        smoke.enabled = false;
 
         currentState = approachState;
         currentState.EnterState();

@@ -23,11 +23,15 @@ public class WeaponManager : MonoBehaviour
         //    weapons[i].transform.gameObject.SetActive(false);
         //}
         //weapon.transform.gameObject.SetActive(true);
-
-
-        //Se viene impostata a null l'arma corrente, distruggo l'oggetto dell'arma precedentemente impostata. (Rimane quindi senza)
+        
         if (currentWeapon != null)
+        {
+            foreach(GameObject bullet in currentWeapon.bullets)
+            {
+                Destroy(bullet);
+            }
             Destroy(currentWeapon.gameObject);
+        }
 
         //Assegno a currentWeapon l'oggetto dell'arma che istanzio
         currentWeapon = (Weapon)Instantiate(weapon, weaponPoint.position, transform.rotation);

@@ -17,18 +17,7 @@ public class PowerUpUsable : MonoBehaviour
     {
         if (collider.gameObject.name == "Player")
         {
-            if (PUType == type.CloneTrap)
-            {
-                player.pickedPU = "CloneTrap";
-            }
-            else if (PUType == type.Bomb)
-            {
-                return;
-            } 
-            else if (PUType == type.Sprint)
-            {
-                return;
-            }
+            player.pickedPU = PUType.ToString();
 
             Destroy(gameObject);
         }

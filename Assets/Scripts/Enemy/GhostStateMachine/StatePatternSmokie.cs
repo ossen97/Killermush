@@ -18,7 +18,8 @@ public class StatePatternSmokie : MonoBehaviour
     public bool collideWithPlayer = false;
     public int clickValue;
     public TextMesh text;
-    
+
+    public KeyCode key;
     public float timeBetweenAttacks;
     public float clickValueSubSpeed;
     public float updatePathTimer;

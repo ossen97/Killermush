@@ -6,7 +6,8 @@ public class Health : MonoBehaviour
 {
     public float maxHealth;
     public float coolDownTimer; //Tempo tra una riduzione della vita e un'altra  
-    public float currentHealth; 
+    public float currentHealth;
+    public float resistance;
     public bool deactiveOnDeath=false;
     public bool hideOnDeath = false;
     private bool onCD; //Determina se si sta attendendo il passare del tempo di attesa tra una riduzione della vita e un'altra  
@@ -22,6 +23,7 @@ public class Health : MonoBehaviour
         drop = GetComponent<DropPowerUp>();
         if(GetComponentInChildren<Canvas>())
             healthBarCanvas = GetComponentInChildren<Canvas>().transform;
+        resistance = 1;
     }
 
     void Start()
@@ -34,6 +36,7 @@ public class Health : MonoBehaviour
     void Update()
     {
         currentHealth=Mathf.Clamp(currentHealth, 0, maxHealth);
+        healthBarImage.fillAmount = currentHealth / maxHealth;
     }
     
     IEnumerator CoolDownDmg()
@@ -59,8 +62,7 @@ public class Health : MonoBehaviour
         if (!onCD && currentHealth > 0 && damageable)
         {
             StartCoroutine(CoolDownDmg());
-            currentHealth -= damage;
-            healthBarImage.fillAmount = currentHealth / maxHealth;
+            currentHealth -= damage/resistance;
         }
         if (currentHealth <= 0)
         {
